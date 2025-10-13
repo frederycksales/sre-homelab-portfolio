@@ -32,15 +32,11 @@ resource "proxmox_vm_qemu" "control_plane" {
   }
 
   # Disco
-  disks {
-    scsi {
-      scsi0 {
-        disk {
-          storage = "local-lvm"
-          size    = 30
-        }
-      }
-    }
+  disk {
+    slot    = "scsi0"
+    type    = "disk"
+    storage = "local-lvm"
+    size    = "30G"
   }
 
   # Cloud-Init
@@ -86,15 +82,11 @@ resource "proxmox_vm_qemu" "workers" {
   }
 
   # Disco
-  disks {
-    scsi {
-      scsi0 {
-        disk {
-          storage = "local-lvm"
-          size    = 30
-        }
-      }
-    }
+  disk {
+    slot    = "scsi0"
+    type    = "disk"
+    storage = "local-lvm"
+    size    = "30G"
   }
 
   # Cloud-Init
