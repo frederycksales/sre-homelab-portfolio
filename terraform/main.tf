@@ -10,7 +10,7 @@ resource "proxmox_vm_qemu" "control_plane" {
   target_node = "pve-homelab-01"
 
   # Origem
-  clone      = "debian-13-cloudinit-template"
+  clone      = "template-debian13-cloud-init-agent"
   full_clone = true
 
   # Recursos
@@ -60,7 +60,7 @@ resource "proxmox_vm_qemu" "workers" {
   target_node = "pve-homelab-01"
 
   # Origem
-  clone      = "debian-13-cloudinit-template"
+  clone      = "template-debian13-cloud-init-agent"
   full_clone = true
 
   # Recursos
