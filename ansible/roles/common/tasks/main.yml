@@ -1,0 +1,30 @@
+---
+
+- name: Set the hostname for discoverability
+  ansible.builtin.hostname:
+    name: "{{ inventory_hostname }}"
+  notify: reboot node
+
+- name: Update APT package cache
+  ansible.builtin.apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Perform a full system upgrade
+  ansible.builtin.apt:
+    upgrade: dist
+
+- name: Install essential packages for Kubernetes and storage
+  ansible.builtin.apt:
+    name:
+      - containerd
+      - nfs-common
+    state: present
+
+- name: Ensure critical services are enabled and running
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  loop:
+    - containerd
