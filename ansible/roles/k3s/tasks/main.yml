@@ -1,0 +1,32 @@
+---
+- name: Check if K3s is already installed
+  ansible.builtin.stat:
+    path: /usr/local/bin/k3s
+  register: k3s_binary
+
+- name: Install K3s on Control-Plane node
+  ansible.builtin.shell:
+    cmd: "curl -sfL https://get.k3s.io | sh -s - server --cluster-init"
+  when:
+    - inventory_hostname in groups['control_plane']
+    - not k3s_binary.stat.exists
+
+- name: Get the cluster join-token from the Control-Plane
+  ansible.builtin.command:
+    cmd: "cat /var/lib/rancher/k3s/server/node-token"
+  register: k3s_join_token
+  changed_when: false
+  when: inventory_hostname in groups['control_plane']
+
+- name: Store and broadcast the join-token for all hosts
+  ansible.builtin.set_fact:
+    k3s_token: "{{ hostvars[groups['control_plane'][0]].k3s_join_token.stdout }}"
+  run_once: true
+
+- name: Install K3s on Worker nodes
+  ansible.builtin.shell:
+    cmd: >
+      curl -sfL https://get.k3s.io | K3S_URL=https://{{ hostvars[groups['control_plane'][0]].ansible_host }}:6443 K3S_TOKEN={{ k3s_token }} sh -
+  when:
+    - inventory_hostname in groups['workers']
+    - not k3s_binary.stat.exists
