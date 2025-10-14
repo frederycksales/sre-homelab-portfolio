@@ -20,6 +20,8 @@ resource "proxmox_vm_qemu" "control_plane" {
   }
   memory = 4096
 
+  scsihw = "virtio-scsi-single"
+
   boot             = "order=scsi0"
   agent            = 1
   onboot           = true
@@ -82,6 +84,8 @@ resource "proxmox_vm_qemu" "workers" {
     type    = "host"
   }
   memory = 2048
+
+  scsihw = "virtio-scsi-single"
 
   boot             = "order=scsi0"
   agent            = 1
