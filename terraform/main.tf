@@ -49,7 +49,11 @@ resource "proxmox_vm_qemu" "control_plane" {
 
   ipconfig0  = "ip=10.10.10.10/24,gw=10.10.10.1"
   nameserver = "10.10.10.1"
-  sshkeys    = var.ssh_public_key
+  sshkeys    = trimspace(<<EOT
+  ${var.ssh_public_key}
+  ${var.ansible_host_ssh_public_key}
+  EOT
+  )
   ciuser     = "terraform"
 
   lifecycle {
@@ -108,7 +112,11 @@ resource "proxmox_vm_qemu" "workers" {
 
   ipconfig0  = "ip=10.10.10.${20 + count.index}/24,gw=10.10.10.1"
   nameserver = "10.10.10.1"
-  sshkeys    = var.ssh_public_key
+  sshkeys    = trimspace(<<EOT
+  ${var.ssh_public_key}
+  ${var.ansible_host_ssh_public_key}
+  EOT
+  )
   ciuser     = "terraform"
 
   lifecycle {

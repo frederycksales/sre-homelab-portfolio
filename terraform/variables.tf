@@ -15,3 +15,8 @@ variable "ssh_public_key" {
   type = string
   description = "Chave pública SSH para acessar as VMs sem senha."
 }
+
+variable "ansible_host_ssh_public_key" {
+  type        = string
+  description = "Chave pública SSH do host local para automação."
+}
