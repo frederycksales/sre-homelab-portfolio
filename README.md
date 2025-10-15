@@ -70,6 +70,7 @@ graph TD
 
 To interact with this platform, you need to configure secure access. The guides below contain all necessary instructions:
 
+* **[Proxmox Template Guide](./docs/PROXMOX_TEMPLATE_GUIDE.md):** Create the required VM template for infrastructure provisioning.
 * **[Network Architecture](./docs/NETWORK.md):** Understand the network topology.
 * **[SSH Access Guide](./docs/SSH_ACCESS.md):** Configure your SSH client to access the nodes.
 * **[`kubectl` Access Guide](./docs/KUBECTL_ACCESS.md):** Configure `kubectl` on your local machine to manage the cluster.

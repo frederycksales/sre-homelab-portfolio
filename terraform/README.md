@@ -15,14 +15,14 @@ The configuration provisions:
 - 1 Control Plane node (k8s-control-plane-01, 10.10.10.10)
 - 2 Worker nodes (k8s-worker-01/02, 10.10.10.20-21)
 
-All VMs are cloned from the `template-debian13-cloud-init-agent` template.
+All VMs are cloned from the `template-debian12-cloud-init-agent` template.
 
 ## Prerequisites
 
 - OpenTofu or Terraform installed
 - Proxmox VE API token
 - SSH public keys for access
-- Cloud-init template available in Proxmox
+- A Cloud-Init template available in Proxmox. See the **[Proxmox Template Guide](../docs/PROXMOX_TEMPLATE_GUIDE.md)** for creation instructions.
 
 ## Configuration
 
