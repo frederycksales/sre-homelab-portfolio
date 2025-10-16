@@ -68,7 +68,7 @@ resource "proxmox_vm_qemu" "control_plane" {
 # ==============================================================================
 
 resource "proxmox_vm_qemu" "workers" {
-  count = 2
+  count = 3
 
   vmid        = 110 + count.index
   name        = "k8s-worker-0${count.index + 1}"
@@ -83,7 +83,7 @@ resource "proxmox_vm_qemu" "workers" {
     sockets = 1
     type    = "host"
   }
-  memory = 2048
+  memory = 4096
 
   scsihw = "virtio-scsi-single"
 
